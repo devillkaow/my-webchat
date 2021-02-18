@@ -1,25 +1,26 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Icon } from "@blueprintjs/core";
 
 const NavbarContainer = styled.div`
 background-color: steelblue;
 text-align: center;
-height: 80px;
+height: 10vh;
 `
 
 const IconContainer = styled.div`
-padding: 28px;
+padding: 2rem;
 `
 
 const style = {
-  margin: '20px'
+  margin: '20px',
+  cursor: 'pointer'
 }
 
 const logoutstyle = {
-  float: 'right'
+  float: 'right',
+  cursor: 'pointer'
 }
 
 
