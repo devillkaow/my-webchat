@@ -6,7 +6,23 @@ import { Link } from 'react-router-dom'
 import { PostAuthor } from './PostAuthor'
 import { LikeButton } from './LikeButton'
 import { Commentbox } from './AddCommentForm'
-import { CommentList } from './CommentList'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  background-color: rgba(	51, 162, 255, .2);
+  padding: 20px 320px;
+  border-radius: 4px;
+  width: 100vw;
+`
+
+const PostContent = styled.div`
+ background-color: rgba(	51, 162, 255, .9);
+  font-size: 36px;
+  margin: 0 0 8px 0;
+  padding: 20px;
+  color: white;
+  border-radius: 4px;
+`
 
 export const ViewPost = ({ match }) => {
   const { postId } = match.params
@@ -17,22 +33,18 @@ export const ViewPost = ({ match }) => {
 
   if (!post) {
     return (
-      <section>
         <h2>Post not found!</h2>
-      </section>
     )
   }
 
   return (
-    <section>
-      <article className="post">
-        <h2>{post.content}</h2>
-        <div>
+    <Container>
+        <PostContent>
+          {post.content}
           <PostAuthor userId={post.user} />
-        </div>
-        <LikeButton post={post} />
-        <Commentbox post={post} />
-      </article>
-    </section>
+        </PostContent> 
+          <LikeButton post={post} />
+          <Commentbox post={post} />
+    </Container>
   )
 }
