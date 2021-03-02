@@ -6,7 +6,6 @@ const PostsContainer = styled.div`
   width:66%;
   height: auto;
   padding:3rem;
-  background-color: rgba(	51, 162, 255, .1);
 `
 
 export const PostsLane = () => {
