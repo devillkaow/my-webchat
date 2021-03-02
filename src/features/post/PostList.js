@@ -1,8 +1,9 @@
 import React from 'react'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Icon } from "@blueprintjs/core";
+import { postDeleted } from './postsSlice'
 
 import { PostAuthor } from './PostAuthor'
 import { LikeButton } from './LikeButton'
@@ -26,36 +27,65 @@ const PostContent = styled.div`
 
 const style = {
   cursor: 'pointer',
-  margin: '0 0 0 0',
   display: 'flex',
+  margin: '8px 0',
   justifyContent: 'flex-end',
 }
 
 export const PostsList = () => {
 
   const posts = useSelector((state) => state.posts)
+
+  const dispatch = useDispatch()
+
   const userlogged = useSelector((state) => state.userlogged)
 
+  const users = useSelector((state) =>
+  state.users.find((user) => user.username === userlogged[0].username )
+)
+
   const renderedPosts = posts.map((post) => {
-    if(post){
-    return (
-      <Container key={post.id}>
-       
-        <PostContent>
-          {post.content}
-          <PostAuthor userId={post.user} />
-        </PostContent> 
-        <LikeButton post={post} />
-        <CommentList post={post} />
-        <Link to={`/posts/${post.id}`} >
-            <Icon icon="comment" iconSize={32} style={style}/>
-        </Link>
-      </Container>
-    )
+
+    const handleClicked = () => {
+      dispatch(postDeleted({postId: post.id}))
+      console.log("postidส่ง",post.id)
+
   }
+  
+    if(post){
+      if( post.user === users.id ){
+        return (
+          <Container key={post.id}>
+          <Icon icon="cross" iconSize={20} onClick={handleClicked} style={style} />
+            <PostContent>
+              {post.content}
+              <PostAuthor userId={post.user} />
+            </PostContent> 
+            <LikeButton post={post} />
+            <CommentList post={post} />
+            <Link to={`/posts/${post.id}`} >
+                <Icon icon="comment" iconSize={32} style={style}/>
+            </Link>
+          </Container>
+        )
+      } else {
+        return (
+          <Container key={post.id}>
+            <PostContent>
+              {post.content}
+              <PostAuthor userId={post.user} />
+            </PostContent> 
+            <LikeButton post={post} />
+            <CommentList post={post} />
+            <Link to={`/posts/${post.id}`} >
+                <Icon icon="comment" iconSize={32} style={style}/>
+            </Link>
+          </Container>
+        )
+      }
+    }
 })
   
- console.log('userlogged', userlogged)
  console.log('post', posts)
   return (
     <>
