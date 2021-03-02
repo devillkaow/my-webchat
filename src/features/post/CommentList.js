@@ -9,7 +9,7 @@ padding: 12px;
 `
 const Comment = styled.div`
 margin: 4px 0 4px 0 ;
-font-size: 28px;
+font-size: 24px;
 `
 const style = {
   cursor: 'pointer',
@@ -20,15 +20,15 @@ const style = {
 
 export const CommentList = ({ post }) => {
 
-  const renderedComments = post.comment.map((comment) => {
-    if(post.comment){
+  const renderedComments = post.comments.map((comment) => {
+    if(comment.commentcontents){
     return (
-    <CommentContainer key={post.id}>
-      <Comment>{comment}</Comment>
-      <PostAuthor userId={post.user} style={style}/> 
+    <CommentContainer>
+      <Comment>{comment.commentcontents}</Comment>
+      <PostAuthor userId={comment.userComments} style={style}/> 
     </CommentContainer>
-  )}
-    })
+  )} 
+})
 return(
   <>
     {renderedComments}
