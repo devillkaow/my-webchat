@@ -3,11 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { postAdded } from './postsSlice'
 
-const TitleAdd = styled.div`
-  text-align: left;
-  padding: 20px;
-  font-size: 24px;
-`
 
 const Form = styled.form`
   padding: 20px;
@@ -17,15 +12,11 @@ const Form = styled.form`
 const Input = styled.textarea`
   padding: 20px 0 40px 16px;
   margin: 0 0 8px 0;
-  border: 2px solid #ccc;
-  border-radius: 4px;
+  border: 1 solid #cccccc;
   font-size: 20px;
   width: 97.5%;
   height: 20px;
-    :focus{
-      padding:20px 0px 40px 16px;
-      
-    }
+  border-style: none none solid none;
 `
 
 const Button = styled.button`
@@ -36,41 +27,40 @@ const Button = styled.button`
   border: none;
   float: right;
   cursor: pointer;
+  color: white;
 `
 
 export const AddPostForm = () => {
   const [content, setContent] = useState('')
-  const [userId, setUserId] = useState('')
 
   const dispatch = useDispatch()
 
   const userlogged = useSelector((state) => state.userlogged)
 
   const users = useSelector((state) =>
-  state.users.find((user) => user.username == userlogged[0].username.username )
+  state.users.find((user) => user.username === userlogged[0].username )
 )
 
   const handleChange = (e) => setContent(e.target.value)
 
   const handleClicked = () => {
     if (content) {
-      dispatch(postAdded(content, userId))
+      dispatch(postAdded( content , users.id))
       setContent('')
-      setUserId('')
     }
   }
-
-                                                                                                           
+                                                                                        
   return (
     <>
-      <TitleAdd>Add a New Post</TitleAdd>
       <Form>
         <Input
+          placeholder="Add a New Post"
           id="postContent"
           type="text"
           name="postContent"
           value={content}
           onChange={handleChange}
+          style={{ minHeight: 10, }}
         />
         <Button type="button" onClick={handleClicked}>
           Post
