@@ -1,7 +1,9 @@
 import React from "react";
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Icon } from "@blueprintjs/core";
+import { Icon } from '@blueprintjs/core'
+import { userLogout } from '../../features/user/userLogged'
 
 const NavbarContainer = styled.div`
 background-color: steelblue;
@@ -23,28 +25,31 @@ const logoutstyle = {
   cursor: 'pointer'
 }
 
+export const NavbarLane = ({setToken}) => {
 
-export const NavbarLane = () => {
+const dispatch = useDispatch()
 
 const handleLogout = () => {
-  localStorage.clear();
-  window.location.href = '/';
+  setToken(false)
+  dispatch(userLogout)
 }
   return (
     <>
       <NavbarContainer>
         <IconContainer>  
-          <Icon icon="plus"  iconSize={20} style={style} />
+          <Icon icon="plus"  iconSize={20} style={style}  />
           <Link to="/">
              <Icon icon="home"  iconSize={20} style={style} />
           </Link>
           <Icon icon="notifications" iconSize={20} style={style} />
-          <Icon 
-            icon="log-out" 
-            iconSize={20} 
-            style={logoutstyle}
-            onClick={handleLogout}
-          />
+          <Link to="/login">
+            <Icon 
+              icon="log-out" 
+              iconSize={20} 
+              style={logoutstyle}
+              onClick={handleLogout}
+            />
+           </Link>
         </IconContainer>
       </NavbarContainer>
     </>
