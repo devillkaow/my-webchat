@@ -9,10 +9,9 @@ const Author = styled.div`
 `
 
 export const PostAuthor = ({ userId }) => {
-  const userlogged = useSelector((state) => state.userlogged)
 
-  const author = useSelector((state) =>
-  state.users.find((user) => user.username == userlogged[0].username.username )
+const author = useSelector((state) =>
+  state.users.find((user) => user.id === userId)
 )
 
   return <Author>by {author ? author.name : 'Unknown'}</Author>
