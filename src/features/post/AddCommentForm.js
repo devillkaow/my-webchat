@@ -1,5 +1,5 @@
 import React, { useState }  from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components';
 import { commentAdded } from './postsSlice'
 import { CommentList } from './CommentList'
@@ -36,11 +36,18 @@ export const Commentbox = ({ post }) => {
 
   const handleChange = (e) => setComment(e.target.value)
 
+  const userlogged = useSelector((state) => state.userlogged)
+
+  const users = useSelector((state) =>
+  state.users.find((user) => user.username === userlogged[0].username )
+)
+
   const handleClick = () => {
     if (comment) {
-      dispatch(commentAdded( { postId: post.id, comments: comment  }))
+      dispatch(commentAdded({ postId: post.id,  comment: comment  , userComment: users.id }))
       setComment('')
     }
+    console.log('userrrrr', users.id)
   }
 
   console.log('papapapost!!',post)
