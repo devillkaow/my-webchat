@@ -71,3 +71,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # my-webchat
 username : stewie
 password : suie
+
+username : kaow
+password : kaow
+
+username : zero
+password : zero
+
