@@ -17,43 +17,40 @@ import Login from './component/login/Login'
 import useToken from './useToken';
 
 const Content = styled.div`
-display: flex;
-height: auto;
-  background-color: rgba(	51, 162, 255, .2);
+  display: flex;
+  height: auto;
 `
 
 function App() {
   const { token, setToken } = useToken();
 
-  if (!token) {
-    return <Login setToken={setToken} />
+  let tokenKaow = token ? 
+  (
+      <>
+        <GlobalStyle />
+        <Router>
+        <NavbarLane setToken={setToken} />
+          <Content>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <React.Fragment>
+                    <PostsLane />
+                    <UserInfo />
+                  </React.Fragment>
+                )}
+              />
+              <Route exact path="/posts/:postId" component={ViewPost} />
+              <Redirect to="/" />
+            </Switch>
+          </Content>
+        </Router>
+      </>
+  ) : ( <Login component={Login} setToken={setToken} />)
 
-  }
-
-  return (
-    <>
-      <GlobalStyle />
-      <Router>
-        <NavbarLane />
-        <Content>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <React.Fragment>
-                  <PostsLane />
-                  <UserInfo />
-                </React.Fragment>
-              )}
-            />
-            <Route exact path="/posts/:postId" component={ViewPost} />
-            <Redirect to="/" />
-          </Switch>
-        </Content>
-      </Router>
-    </>
-  )
+  return tokenKaow
 }
 
 export default App
